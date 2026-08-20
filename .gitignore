@@ -1,0 +1,12 @@
+# SolidWorks 临时/锁定文件
+~$*.SLDPRT
+~$*.SLDASM
+~$*.SLDDRW
+~$*.sldprt
+~$*.sldasm
+~$*.slddrw
+
+# 系统文件
+Thumbs.db
+.DS_Store
+desktop.ini
