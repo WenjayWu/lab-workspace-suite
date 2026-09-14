@@ -145,13 +145,13 @@ def main():
     print("尺寸: 300x200x80mm, 壁厚3mm")
 
     m1 = build_drawer_box()
-    m1.export_stl(os.path.join(out_dir, "抽屉盒.STL"), "drawer_box")
+    m1.export_stl(os.path.join(out_dir, "drawer-box.STL"), "drawer_box")
 
     m2 = build_panel()
-    m2.export_stl(os.path.join(out_dir, "抽屉面板.STL"), "drawer_panel")
+    m2.export_stl(os.path.join(out_dir, "drawer-panel.STL"), "drawer_panel")
 
     m3 = build_assembly()
-    m3.export_stl(os.path.join(out_dir, "可堆叠抽屉-整体.STL"), "drawer_assembly")
+    m3.export_stl(os.path.join(out_dir, "stackable-drawer-assembly.STL"), "drawer_assembly")
 
     print("\n完成！共生成3个STL文件，可直接导入切片软件进行3D打印。")
 

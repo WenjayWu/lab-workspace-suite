@@ -1,6 +1,10 @@
-# 实验室工作区套件
+# 实验室工作区套件 (lab-workspace-suite)
 
 实验室工作台配套组件的 SolidWorks 三维模型库，持续扩展中。
+
+## 命名规范
+
+目录与文件统一使用英文小写 + kebab-case（连字符分隔），不使用中文、空格。3D 打印网格（`.STL`）与 CAD 源文件同名放置。SolidWorks 源文件的改名必须在 SolidWorks 内完成（Pack and Go / 另存为更新引用），不要直接在文件管理器中改名。
 
 ## 开源协议
 
@@ -8,38 +12,40 @@
 
 ## 当前组件
 
-### 抽屉
+### 抽屉 (drawer)
 
 | 文件 | 类型 | 说明 |
 | --- | --- | --- |
-| `抽屉/抽屉盒.SLDPRT` | 零件 | 抽屉盒（容纳空间主体） |
-| `抽屉/抽屉.SLDPRT` | 零件 | 抽屉（面板 + 拉手等） |
-| `抽屉/抽屉整体.SLDASM` | 装配体 | 抽屉完整装配 |
-| `抽屉/抽屉盒.STL` | STL | 抽屉盒 3D 打印网格 |
-| `抽屉/抽屉.STL` | STL | 抽屉 3D 打印网格 |
+| `drawer/抽屉盒.SLDPRT` | 零件 | 抽屉盒（容纳空间主体），拟改名 `drawer-box.SLDPRT` |
+| `drawer/抽屉.SLDPRT` | 零件 | 抽屉（面板 + 拉手等），拟改名 `drawer-front.SLDPRT` |
+| `drawer/抽屉整体.SLDASM` | 装配体 | 抽屉完整装配，拟改名 `drawer-assembly.SLDASM` |
+| `drawer/drawer-box.STL` | STL | 抽屉盒 3D 打印网格 |
+| `drawer/drawer-front.STL` | STL | 抽屉 3D 打印网格 |
 
-### 可堆叠抽屉
+> SolidWorks 源文件（`.SLDPRT` / `.SLDASM`）的文件名英文化需在 SolidWorks 内操作（保持引用有效），进行中。
+
+### 可堆叠抽屉 (stackable-drawer)
 
 | 文件 | 类型 | 说明 |
 | --- | --- | --- |
-| `可堆叠抽屉/抽屉盒.STL` | STL | 抽屉盒（带堆叠卡槽） |
-| `可堆叠抽屉/抽屉面板.STL` | STL | 前面板 + 拉手 |
-| `可堆叠抽屉/可堆叠抽屉-整体.STL` | STL | 完整抽屉装配 |
-| `可堆叠抽屉/可堆叠抽屉模型.html` | HTML | 交互式 3D 预览（Three.js） |
-| `可堆叠抽屉/generate_stl.py` | Python | STL 生成脚本（可调参数） |
+| `stackable-drawer/drawer-box.STL` | STL | 抽屉盒（带堆叠卡槽） |
+| `stackable-drawer/drawer-panel.STL` | STL | 前面板 + 拉手 |
+| `stackable-drawer/stackable-drawer-assembly.STL` | STL | 完整抽屉装配 |
+| `stackable-drawer/stackable-drawer-viewer.html` | HTML | 交互式 3D 预览（Three.js） |
+| `stackable-drawer/generate_stl.py` | Python | STL 生成脚本（可调参数） |
 
 ## 目录结构
 
 ```
-实验室工作区套件/
-├── 抽屉/              # 抽屉组件（零件 / 装配体 / STL）
-├── 可堆叠抽屉/        # 可堆叠抽屉系统（STL / HTML 预览 / 生成脚本）
-├── LICENSE            # CC BY 4.0 开源协议
-├── README.md          # 项目说明
-├── STATUS.md          # 项目状态
-├── AGENTS.md          # AI 助手约定
-├── CLAUDE.md          # Claude Code 约定
-└── .gitignore         # SolidWorks 临时与系统文件过滤
+lab-workspace-suite/
+├── drawer/              # 抽屉组件（零件 / 装配体 / STL）
+├── stackable-drawer/    # 可堆叠抽屉系统（STL / HTML 预览 / 生成脚本）
+├── LICENSE              # CC BY 4.0 开源协议
+├── README.md            # 项目说明
+├── STATUS.md            # 项目状态
+├── AGENTS.md            # AI 助手约定
+├── CLAUDE.md            # Claude Code 约定
+└── .gitignore           # SolidWorks 临时与系统文件过滤
 ```
 
 ## 使用方法

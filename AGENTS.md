@@ -8,9 +8,10 @@
 
 ## 仓库约定
 
-- 组件按目录组织：`组件名/` 下放该组件的所有文件
+- 组件按目录组织：`component-name/` 下放该组件的所有文件
 - 每个组件包含：零件（`.SLDPRT`）、装配体（`.SLDASM`，如适用）、3D 打印网格（`.STL`）
-- 文件命名用中文，与组件名一致（如 `抽屉盒.SLDPRT`）
+- 文件命名用英文小写 + kebab-case，与组件名一致（如 `drawer-box.SLDPRT`）
+- SolidWorks 源文件（`.SLDPRT` / `.SLDASM` / `.SLDDRW`）的改名/移动必须在 SolidWorks 内完成（Pack and Go 或另存为更新引用），不要直接在文件管理器中操作，否则装配体引用会断
 - 目录与文件一律使用 UTF-8；文件名不要混用中英文
 - 新增组件时同步更新 `README.md` 的组件清单
 
