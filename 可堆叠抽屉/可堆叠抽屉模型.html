@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>可堆叠抽屉 - 3D 模型预览</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #1a1a2e; color: #eee; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+#info {
+  position: absolute; top: 16px; left: 16px; z-index: 10;
+  background: rgba(0,0,0,0.7); padding: 16px 20px; border-radius: 10px;
+  max-width: 320px; backdrop-filter: blur(8px);
+}
+#info h1 { font-size: 18px; margin-bottom: 8px; color: #4fc3f7; }
+#info p { font-size: 13px; line-height: 1.6; color: #aaa; }
+#controls {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 10;
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+}
+#controls button {
+  background: rgba(79,195,247,0.2); border: 1px solid #4fc3f7; color: #4fc3f7;
+  padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px;
+  transition: all 0.2s;
+}
+#controls button:hover { background: #4fc3f7; color: #1a1a2e; }
+#controls button.active { background: #4fc3f7; color: #1a1a2e; }
+#dimensions {
+  position: absolute; top: 16px; right: 16px; z-index: 10;
+  background: rgba(0,0,0,0.7); padding: 16px 20px; border-radius: 10px;
+  backdrop-filter: blur(8px); font-size: 13px;
+}
+#dimensions h3 { color: #4fc3f7; margin-bottom: 8px; font-size: 14px; }
+#dimensions table { width: 100%; }
+#dimensions td { padding: 3px 8px; color: #aaa; }
+#dimensions td:last-child { color: #eee; text-align: right; }
+canvas { display: block; }
+</style>
+</head>
+<body>
+
+<div id="info">
+  <h1>可堆叠抽屉系统</h1>
+  <p>鼠标左键拖拽旋转 | 滚轮缩放 | 右键平移</p>
+  <p style="margin-top:6px;">单元抽屉可垂直堆叠，底部卡槽与顶部凸起配合定位。</p>
+</div>
+
+<div id="dimensions">
+  <h3>单层抽屉尺寸</h3>
+  <table>
+    <tr><td>宽</td><td>300 mm</td></tr>
+    <tr><td>深</td><td>200 mm</td></tr>
+    <tr><td>高（盒体）</td><td>70 mm</td></tr>
+    <tr><td>高（含面板）</td><td>80 mm</td></tr>
+    <tr><td>壁厚</td><td>3 mm</td></tr>
+    <tr><td>堆叠卡槽深</td><td>3 mm</td></tr>
+  </table>
+</div>
+
+<div id="controls">
+  <button onclick="setView('front')">前视</button>
+  <button onclick="setView('top')">俯视</button>
+  <button onclick="setView('side')">侧视</button>
+  <button onclick="setView('perspective')" class="active">透视</button>
+  <button onclick="toggleExplode()">分解视图</button>
+  <button onclick="toggleStack(1)">1层</button>
+  <button onclick="toggleStack(2)">2层</button>
+  <button onclick="toggleStack(3)" class="active">3层</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+const W = 300, D = 200, H_BOX = 70, H_PANEL = 80, T = 3, H_TOTAL = 80;
+const SLOT_DEPTH = 3, SLOT_INSET = 8, RIDGE_H = 2.5;
+
+let scene, camera, renderer, controls;
+let drawerGroups = [];
+let stackCount = 3;
+let isExploded = false;
+
+function init() {
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x1a1a2e);
+  scene.fog = new THREE.FogExp2(0x1a1a2e, 0.0008);
+
+  camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 5000);
+  camera.position.set(400, 300, 500);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setPixelRatio(devicePixelRatio);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  document.body.appendChild(renderer.domElement);
+
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.target.set(0, H_TOTAL * 1.5, 0);
+
+  const ambientLight = new THREE.AmbientLight(0x404060, 0.6);
+  scene.add(ambientLight);
+
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  dirLight.position.set(300, 500, 400);
+  dirLight.castShadow = true;
+  dirLight.shadow.mapSize.set(2048, 2048);
+  dirLight.shadow.camera.left = -500;
+  dirLight.shadow.camera.right = 500;
+  dirLight.shadow.camera.top = 500;
+  dirLight.shadow.camera.bottom = -500;
+  scene.add(dirLight);
+
+  const fillLight = new THREE.DirectionalLight(0x4fc3f7, 0.3);
+  fillLight.position.set(-200, 200, -300);
+  scene.add(fillLight);
+
+  const groundGeo = new THREE.PlaneGeometry(2000, 2000);
+  const groundMat = new THREE.MeshStandardMaterial({ color: 0x111122, roughness: 0.9 });
+  const ground = new THREE.Mesh(groundGeo, groundMat);
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -5;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  buildDrawers();
+  animate();
+}
+
+function createBoxGeometry() {
+  const group = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({ color: 0x42a5f5, roughness: 0.35, metalness: 0.1 });
+  const matInner = new THREE.MeshStandardMaterial({ color: 0x64b5f6, roughness: 0.5 });
+
+  // bottom
+  group.add(makeMesh(new THREE.BoxGeometry(W, T, D), mat, 0, T / 2, 0));
+
+  // back
+  group.add(makeMesh(new THREE.BoxGeometry(W, H_BOX, T), mat, 0, H_BOX / 2 + T, -D / 2 + T / 2));
+
+  // left
+  group.add(makeMesh(new THREE.BoxGeometry(T, H_BOX, D - T), mat, -W / 2 + T / 2, H_BOX / 2 + T, 0));
+
+  // right
+  group.add(makeMesh(new THREE.BoxGeometry(T, H_BOX, D - T), mat, W / 2 - T / 2, H_BOX / 2 + T, 0));
+
+  // stacking slot on top (groove)
+  const slotW = W - SLOT_INSET * 2;
+  const slotD = D - SLOT_INSET * 2;
+  group.add(makeMesh(new THREE.BoxGeometry(slotW, SLOT_DEPTH, T), matInner, 0, H_BOX + T + SLOT_DEPTH / 2, -D / 2 + T / 2 + slotD / 2 - slotD / 2));
+  group.add(makeMesh(new THREE.BoxGeometry(slotW, SLOT_DEPTH, T), matInner, 0, H_BOX + T + SLOT_DEPTH / 2, D / 2 - T / 2 - slotD / 2 + slotD / 2));
+  group.add(makeMesh(new THREE.BoxGeometry(T, SLOT_DEPTH, slotD), matInner, -W / 2 + T / 2, H_BOX + T + SLOT_DEPTH / 2, 0));
+  group.add(makeMesh(new THREE.BoxGeometry(T, SLOT_DEPTH, slotD), matInner, W / 2 - T / 2, H_BOX + T + SLOT_DEPTH / 2, 0));
+
+  // stacking ridge on bottom (protrusion)
+  group.add(makeMesh(new THREE.BoxGeometry(slotW, RIDGE_H, T - 0.5), mat, 0, -RIDGE_H / 2, -D / 2 + T / 2 + slotD / 2 - slotD / 2));
+  group.add(makeMesh(new THREE.BoxGeometry(slotW, RIDGE_H, T - 0.5), mat, 0, -RIDGE_H / 2, D / 2 - T / 2 - slotD / 2 + slotD / 2));
+  group.add(makeMesh(new THREE.BoxGeometry(T - 0.5, RIDGE_H, slotD), mat, -W / 2 + T / 2, -RIDGE_H / 2, 0));
+  group.add(makeMesh(new THREE.BoxGeometry(T - 0.5, RIDGE_H, slotD), mat, W / 2 - T / 2, -RIDGE_H / 2, 0));
+
+  return group;
+}
+
+function createPanelGeometry() {
+  const group = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({ color: 0x1e88e5, roughness: 0.3, metalness: 0.15 });
+  const matHandle = new THREE.MeshStandardMaterial({ color: 0xbdbdbd, roughness: 0.2, metalness: 0.6 });
+
+  // front panel - slightly wider and taller than box
+  const panelW = W + 4;
+  const panelH = H_PANEL + 2;
+  const panelT = 4;
+  group.add(makeMesh(new THREE.BoxGeometry(panelW, panelH, panelT), mat, 0, panelH / 2, D / 2 + panelT / 2));
+
+  // handle - horizontal bar
+  const handleW = 100;
+  const handleH = 8;
+  const handleD = 15;
+  group.add(makeMesh(new THREE.BoxGeometry(handleW, handleH, handleD), matHandle, 0, panelH / 2, D / 2 + panelT + handleD / 2));
+
+  // handle supports
+  const supportW = 6, supportH = 6, supportD = handleD;
+  group.add(makeMesh(new THREE.BoxGeometry(supportW, supportH, supportD), matHandle, -handleW / 2 + 8, panelH / 2, D / 2 + panelT + handleD / 2));
+  group.add(makeMesh(new THREE.BoxGeometry(supportW, supportH, supportD), matHandle, handleW / 2 - 8, panelH / 2, D / 2 + panelT + handleD / 2));
+
+  return group;
+}
+
+function makeMesh(geometry, material, x, y, z) {
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(x, y, z);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  return mesh;
+}
+
+function createDrawer() {
+  const group = new THREE.Group();
+  group.add(createBoxGeometry());
+  group.add(createPanelGeometry());
+  return group;
+}
+
+function buildDrawers() {
+  drawerGroups.forEach(g => scene.remove(g));
+  drawerGroups = [];
+
+  for (let i = 0; i < stackCount; i++) {
+    const drawer = createDrawer();
+    drawer.position.y = i * (H_TOTAL + SLOT_DEPTH);
+    drawer.userData.index = i;
+    drawerGroups.push(drawer);
+    scene.add(drawer);
+  }
+}
+
+function toggleStack(count) {
+  stackCount = count;
+  buildDrawers();
+  controls.target.y = (count - 1) * (H_TOTAL + SLOT_DEPTH) / 2;
+  document.querySelectorAll('#controls button').forEach(b => {
+    if (b.textContent === count + '层') b.classList.add('active');
+    else if (['1层','2层','3层'].includes(b.textContent)) b.classList.remove('active');
+  });
+}
+
+function toggleExplode() {
+  isExploded = !isExploded;
+  document.querySelectorAll('#controls button').forEach(b => {
+    if (b.textContent === '分解视图') b.classList.toggle('active', isExploded);
+  });
+}
+
+function setView(view) {
+  document.querySelectorAll('#controls button').forEach(b => {
+    if (['前视','俯视','侧视','透视'].includes(b.textContent)) b.classList.remove('active');
+  });
+  const target = controls.target.clone();
+  let pos;
+  switch(view) {
+    case 'front': pos = { x: 0, y: target.y, z: 600 }; break;
+    case 'top': pos = { x: 0, y: 800, z: 0.1 }; break;
+    case 'side': pos = { x: 600, y: target.y, z: 0 }; break;
+    case 'perspective': pos = { x: 400, y: 300, z: 500 }; break;
+  }
+  camera.position.set(pos.x, pos.y, pos.z);
+  controls.update();
+  document.querySelectorAll('#controls button').forEach(b => {
+    if (b.textContent === {'前视':'前视','top':'俯视','side':'侧视','perspective':'透视'}[view]) b.classList.add('active');
+  });
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  if (isExploded) {
+    drawerGroups.forEach((g, i) => {
+      g.position.y += (i * (H_TOTAL + SLOT_DEPTH + 60) - g.position.y) * 0.05;
+    });
+  } else {
+    drawerGroups.forEach((g, i) => {
+      g.position.y += (i * (H_TOTAL + SLOT_DEPTH) - g.position.y) * 0.05;
+    });
+  }
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+init();
+</script>
+</body>
+</html>

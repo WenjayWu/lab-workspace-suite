@@ -18,17 +18,28 @@
 | `抽屉/抽屉盒.STL` | STL | 抽屉盒 3D 打印网格 |
 | `抽屉/抽屉.STL` | STL | 抽屉 3D 打印网格 |
 
+### 可堆叠抽屉
+
+| 文件 | 类型 | 说明 |
+| --- | --- | --- |
+| `可堆叠抽屉/抽屉盒.STL` | STL | 抽屉盒（带堆叠卡槽） |
+| `可堆叠抽屉/抽屉面板.STL` | STL | 前面板 + 拉手 |
+| `可堆叠抽屉/可堆叠抽屉-整体.STL` | STL | 完整抽屉装配 |
+| `可堆叠抽屉/可堆叠抽屉模型.html` | HTML | 交互式 3D 预览（Three.js） |
+| `可堆叠抽屉/generate_stl.py` | Python | STL 生成脚本（可调参数） |
+
 ## 目录结构
 
 ```
 实验室工作区套件/
-├── 抽屉/          # 抽屉组件（零件 / 装配体 / STL）
-├── LICENSE        # CC BY 4.0 开源协议
-├── README.md      # 项目说明
-├── STATUS.md      # 项目状态
-├── AGENTS.md      # AI 助手约定
-├── CLAUDE.md      # Claude Code 约定
-└── .gitignore     # SolidWorks 临时与系统文件过滤
+├── 抽屉/              # 抽屉组件（零件 / 装配体 / STL）
+├── 可堆叠抽屉/        # 可堆叠抽屉系统（STL / HTML 预览 / 生成脚本）
+├── LICENSE            # CC BY 4.0 开源协议
+├── README.md          # 项目说明
+├── STATUS.md          # 项目状态
+├── AGENTS.md          # AI 助手约定
+├── CLAUDE.md          # Claude Code 约定
+└── .gitignore         # SolidWorks 临时与系统文件过滤
 ```
 
 ## 使用方法
