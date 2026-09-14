@@ -16,13 +16,11 @@
 
 | 文件 | 类型 | 说明 |
 | --- | --- | --- |
-| `drawer/抽屉盒.SLDPRT` | 零件 | 抽屉盒（容纳空间主体），拟改名 `drawer-box.SLDPRT` |
-| `drawer/抽屉.SLDPRT` | 零件 | 抽屉（面板 + 拉手等），拟改名 `drawer-front.SLDPRT` |
-| `drawer/抽屉整体.SLDASM` | 装配体 | 抽屉完整装配，拟改名 `drawer-assembly.SLDASM` |
+| `drawer/drawer-box.SLDPRT` | 零件 | 抽屉盒（容纳空间主体） |
+| `drawer/drawer-front.SLDPRT` | 零件 | 抽屉（面板 + 拉手等） |
+| `drawer/drawer-assembly.SLDASM` | 装配体 | 抽屉完整装配 |
 | `drawer/drawer-box.STL` | STL | 抽屉盒 3D 打印网格 |
 | `drawer/drawer-front.STL` | STL | 抽屉 3D 打印网格 |
-
-> SolidWorks 源文件（`.SLDPRT` / `.SLDASM`）的文件名英文化需在 SolidWorks 内操作（保持引用有效），进行中。
 
 ### 可堆叠抽屉 (stackable-drawer)
 

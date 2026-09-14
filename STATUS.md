@@ -15,13 +15,11 @@
 
 | 文件 | 类型 | 说明 |
 | --- | --- | --- |
-| `drawer/抽屉盒.SLDPRT` | 零件 | 抽屉盒（容纳空间主体），拟改名 `drawer-box.SLDPRT` |
-| `drawer/抽屉.SLDPRT` | 零件 | 抽屉（面板 + 拉手等），拟改名 `drawer-front.SLDPRT` |
-| `drawer/抽屉整体.SLDASM` | 装配体 | 抽屉完整装配，拟改名 `drawer-assembly.SLDASM` |
+| `drawer/drawer-box.SLDPRT` | 零件 | 抽屉盒（容纳空间主体） |
+| `drawer/drawer-front.SLDPRT` | 零件 | 抽屉（面板 + 拉手等） |
+| `drawer/drawer-assembly.SLDASM` | 装配体 | 抽屉完整装配 |
 | `drawer/drawer-box.STL` | STL | 抽屉盒 3D 打印网格 |
 | `drawer/drawer-front.STL` | STL | 抽屉 3D 打印网格 |
-
-> SolidWorks 源文件名英文化进行中（需在 SolidWorks 内改名以保持引用）。
 
 ### 可堆叠抽屉 (stackable-drawer) ✅ 已完成
 
@@ -38,7 +36,7 @@
 - [ ] 其他工作区组件（支架、隔板、走线槽等）
 - [ ] 导出 STEP 格式（中性 CAD 交换格式）
 - [ ] 打印测试与尺寸验证
-- [ ] drawer 组件 SolidWorks 源文件名英文化（SW 内 Pack and Go）
+- [x] drawer 组件 SolidWorks 源文件名英文化（SW 内 Pack and Go）
 
 ## 更新记录
 
@@ -46,4 +44,4 @@
 | --- | --- |
 | 2026-08-20 | 初始化仓库，加入抽屉组件；补充 README、AGENTS、CLAUDE、STATUS 文档 |
 | 2026-08-26 | 新增可堆叠抽屉组件：STL模型、HTML交互预览、Python生成脚本 |
-| 2026-09-14 | 目录与导出文件改为英文 kebab-case 命名；命名约定由中文改为英文 |
+| 2026-09-14 | 全部目录与文件改为英文 kebab-case 命名（含 drawer 组件 SW 源文件，SW 内改名保持引用）；命名约定由中文改为英文 |
