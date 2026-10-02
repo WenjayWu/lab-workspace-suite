@@ -8,12 +8,13 @@
 
 ### 抽屉 (drawer)
 
-用于工作台收纳，包含抽屉盒、抽屉及完整装配体。已调整抽屉与盒体的上下间隙，并重新导出抽屉盒 STL；当前等待打印测试与尺寸验证。
+用于工作台收纳，已完成基础设计、打印与使用（维护者反馈）。`drawer-front` 是实际抽拉与容纳物品的完整抽屉，`drawer-box` 是容纳抽屉的外层壳体，并实现堆叠。抽屉内腔约为宽 270 × 深 260 × 高 134 mm。
 
 | 文件入口 | 用途 |
 | --- | --- |
 | [drawer-assembly.SLDASM](drawer/drawer-assembly.SLDASM) | 查看整体装配和零件配合 |
-| [drawer-box.SLDPRT](drawer/drawer-box.SLDPRT)、[drawer-front.SLDPRT](drawer/drawer-front.SLDPRT) | 编辑抽屉盒与抽屉（面板、拉手等）的设计 |
+| [drawer-front.SLDPRT](drawer/drawer-front.SLDPRT) | 编辑实际抽屉与收纳内腔 |
+| [drawer-box.SLDPRT](drawer/drawer-box.SLDPRT) | 编辑外层容纳与堆叠壳体 |
 | [drawer-box.STL](drawer/drawer-box.STL)、[drawer-front.STL](drawer/drawer-front.STL) | 导入切片软件，准备试制 |
 
 ## 怎么使用
@@ -28,13 +29,16 @@
 
 将 `drawer/` 中的两个 STL 分别导入切片软件，根据打印机、材料和实际使用需求设置打印参数。打印后检查抽屉滑动、上下及左右间隙，再决定是否调整模型。
 
-STL 是设计导出的快照。当前间隙修改尚待打印验证，具体进度和尺寸变更见 [STATUS.md](STATUS.md)。
+STL 是设计导出的快照，修改源模型后需同步导出。具体进度、使用反馈与尺寸变更见 [STATUS.md](STATUS.md)。
 
 ### 查看设计参考
 
-[references/](references/README.md) 存放 AI 生成的概念模型、预览页和生成脚本，现有方案为 [可堆叠抽屉](references/stackable-drawer/README.md)。用浏览器打开其中的 HTML 可查看概念预览，页面依赖联网加载的库。
+[references/](references/README.md) 存放概念模型、预览页、图片和生成脚本：
 
-这些资料用于设计参考，未作为实际生产方案验证。预览页独立绘制模型，与 STL 的几何不完全一致；文件说明与使用方法见参考目录。
+- [抽屉内部分区](references/drawer-organizer/README.md)：可拆隔板与固定隔舱，共四种构造。浏览器打开 HTML 即可离线切换方案、旋转、俯视和拆分隔板，并查看图片参考。
+- [可堆叠抽屉](references/stackable-drawer/README.md)：早期 AI 生成的参考模型与脚本，HTML 概念预览需联网加载库，与 STL 几何不完全一致。
+
+这些资料用于设计参考，具体尺寸和配合在实际建模时确定；各方案的来源、使用方法与限制见对应目录。
 
 ## 目录导览
 
@@ -43,6 +47,7 @@ lab-workspace-suite/
 ├── drawer/                     # 实际开发的抽屉组件：SolidWorks / STL
 ├── references/                 # 设计参考资料
 │   ├── README.md               # 参考索引与命名方式
+│   ├── drawer-organizer/       # 抽屉内部分区：离线 HTML / 图片 / 提示词
 │   └── stackable-drawer/       # AI 生成的可堆叠抽屉概念方案
 ├── README.md                   # 项目用途与使用入口
 ├── STATUS.md                   # 开发进度、验证状态与更新记录
