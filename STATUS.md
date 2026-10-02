@@ -4,14 +4,15 @@
 
 ## 当前状态
 
-- 最近更新：2026-09-16（drawer 上下间隙修改完成，待打印验证）
-- 可用组件：2（抽屉、可堆叠抽屉）
+- 最近更新：2026-10-02（重写项目说明，整理参考目录与命名）
+- 开发组件：1（抽屉，待打印验证）
+- 参考方案：1（可堆叠抽屉，仅作设计参考）
 - 开源协议：CC BY 4.0
 - 待完成：见下方「更新计划」
 
 ## 组件清单
 
-### 抽屉 (drawer) ✅ 已完成
+### 抽屉 (drawer) — 模型已修改，待打印验证
 
 | 文件 | 类型 | 说明 |
 | --- | --- | --- |
@@ -21,17 +22,19 @@
 | `drawer/drawer-box.STL` | STL | 抽屉盒 3D 打印网格 |
 | `drawer/drawer-front.STL` | STL | 抽屉 3D 打印网格 |
 
-### 可堆叠抽屉 (stackable-drawer) ✅ 已完成
+## 参考资料
 
-这是AI生成的测试文件，不作为后续实际生产，只作参考
+### 可堆叠抽屉 (stackable-drawer) — 仅作参考
+
+AI 生成的测试资料，不作为后续实际生产方案。来源据回忆为 DeepSeek，未核实；现已归档到 [references/stackable-drawer/](references/stackable-drawer/README.md)，不计入开发组件数量。
 
 | 文件 | 类型 | 说明 |
 | --- | --- | --- |
-| `stackable-drawer/drawer-box.STL` | STL | 抽屉盒（带堆叠卡槽） |
-| `stackable-drawer/drawer-panel.STL` | STL | 前面板 + 拉手 |
-| `stackable-drawer/stackable-drawer-assembly.STL` | STL | 完整抽屉装配 |
-| `stackable-drawer/stackable-drawer-viewer.html` | HTML | 交互式 3D 预览（Three.js） |
-| `stackable-drawer/generate_stl.py` | Python | STL 生成脚本（可调参数） |
+| `references/stackable-drawer/drawer-box-deepseek.STL` | STL | 抽屉盒与堆叠结构参考 |
+| `references/stackable-drawer/drawer-panel-deepseek.STL` | STL | 前面板与拉手参考 |
+| `references/stackable-drawer/stackable-drawer-assembly-deepseek.STL` | STL | 抽屉装配参考 |
+| `references/stackable-drawer/stackable-drawer-preview-deepseek.html` | HTML | 独立绘制的概念预览，与 STL 几何不完全一致 |
+| `references/stackable-drawer/stackable-drawer-generator-deepseek.py` | Python | STL 参考生成脚本（可调参数） |
 
 ## 更新计划
 
@@ -46,6 +49,7 @@
 
 **已完成**
 
+- [x] 重写 README，建立 references 参考目录，整理可堆叠抽屉资料与命名
 - [x] 修改 drawer 组件：增大抽屉与抽屉盒间隙（上下各约 2mm，详见更新记录 2026-09-16）
 - [x] drawer 组件 SolidWorks 源文件名英文化（SW 内 Pack and Go）
 
@@ -53,6 +57,7 @@
 
 | 日期 | 类型 | 内容 |
 | --- | --- | --- |
+| 2026-10-02 | 整理 | README 聚焦项目用途与使用方法；五个可堆叠抽屉参考文件迁入 references/stackable-drawer/，按名称－用途（需要时）－来源命名；来源暂记 DeepSeek（未核实）；同步脚本输出文件名与维护约定，模型几何未修改 |
 | 2026-09-16 | 修改 | drawer 组件：drawer-box 主体拉伸长度改为 150mm，盒内上下空间增至 140mm（不含圆角），drawer-front 仍为 136mm（上下间隙合计约 4mm）；已重新导出 drawer-box.STL |
 | 2026-09-16 | 反馈 | 打印测试：抽屉与抽屉盒之间需留足够空隙，不仅左右两侧，上下侧同样需要；已列入更新计划，待修改模型 |
 | 2026-09-14 | 重构 | 全部目录与文件改为英文 kebab-case 命名（含 drawer 组件 SW 源文件，SW 内改名保持引用）；命名约定由中文改为英文 |

@@ -2,6 +2,9 @@
 可堆叠抽屉 STL 生成脚本
 使用纯 Python 生成 ASCII STL，无需第三方依赖。
 单位：毫米 (mm)
+仅作设计参考，未验证生产可用性。
+来源：据回忆为 DeepSeek 生成，未核实。
+运行时会覆盖脚本所在目录的三个同名 STL，试验前请复制到单独目录。
 
 设计参数：
   外宽 300mm x 外深 200mm x 盒高 70mm
@@ -145,15 +148,15 @@ def main():
     print("尺寸: 300x200x80mm, 壁厚3mm")
 
     m1 = build_drawer_box()
-    m1.export_stl(os.path.join(out_dir, "drawer-box.STL"), "drawer_box")
+    m1.export_stl(os.path.join(out_dir, "drawer-box-deepseek.STL"), "drawer_box")
 
     m2 = build_panel()
-    m2.export_stl(os.path.join(out_dir, "drawer-panel.STL"), "drawer_panel")
+    m2.export_stl(os.path.join(out_dir, "drawer-panel-deepseek.STL"), "drawer_panel")
 
     m3 = build_assembly()
-    m3.export_stl(os.path.join(out_dir, "stackable-drawer-assembly.STL"), "drawer_assembly")
+    m3.export_stl(os.path.join(out_dir, "stackable-drawer-assembly-deepseek.STL"), "drawer_assembly")
 
-    print("\n完成！共生成3个STL文件，可直接导入切片软件进行3D打印。")
+    print("\n完成！共生成3个参考STL文件，尚未验证打印与配合。")
 
 
 if __name__ == "__main__":

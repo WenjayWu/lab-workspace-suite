@@ -1,61 +1,55 @@
 # 实验室工作区套件 (lab-workspace-suite)
 
-实验室工作台配套组件的 SolidWorks 三维模型库，持续扩展中。
+为实验室工作台设计和制作收纳及配套组件，保存 SolidWorks 设计源文件与用于 3D 打印的 STL，便于按实际使用需求调整尺寸、试制和迭代。
 
-## 命名规范
-
-目录与文件统一使用英文小写 + kebab-case（连字符分隔），不使用中文、空格。3D 打印网格（`.STL`）与 CAD 源文件同名放置。SolidWorks 源文件的改名必须在 SolidWorks 内完成（Pack and Go / 另存为更新引用），不要直接在文件管理器中改名。
-
-## 开源协议
-
-本项目采用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.zh-hans)（知识共享-署名 4.0 国际）协议开源：任何人可自由使用、修改、商用，但需保留署名。完整条款见 [LICENSE](./LICENSE)。
+目前主要开发抽屉组件，后续计划扩展支架、隔板、走线槽等工作区配件。AI 生成的概念方案单独收录在参考目录中，用于探索结构和外观。
 
 ## 当前组件
 
 ### 抽屉 (drawer)
 
-| 文件 | 类型 | 说明 |
-| --- | --- | --- |
-| `drawer/drawer-box.SLDPRT` | 零件 | 抽屉盒（容纳空间主体） |
-| `drawer/drawer-front.SLDPRT` | 零件 | 抽屉（面板 + 拉手等） |
-| `drawer/drawer-assembly.SLDASM` | 装配体 | 抽屉完整装配 |
-| `drawer/drawer-box.STL` | STL | 抽屉盒 3D 打印网格 |
-| `drawer/drawer-front.STL` | STL | 抽屉 3D 打印网格 |
+用于工作台收纳，包含抽屉盒、抽屉及完整装配体。已调整抽屉与盒体的上下间隙，并重新导出抽屉盒 STL；当前等待打印测试与尺寸验证。
 
-### 可堆叠抽屉 (stackable-drawer)
+| 文件入口 | 用途 |
+| --- | --- |
+| [drawer-assembly.SLDASM](drawer/drawer-assembly.SLDASM) | 查看整体装配和零件配合 |
+| [drawer-box.SLDPRT](drawer/drawer-box.SLDPRT)、[drawer-front.SLDPRT](drawer/drawer-front.SLDPRT) | 编辑抽屉盒与抽屉（面板、拉手等）的设计 |
+| [drawer-box.STL](drawer/drawer-box.STL)、[drawer-front.STL](drawer/drawer-front.STL) | 导入切片软件，准备试制 |
 
-| 文件 | 类型 | 说明 |
-| --- | --- | --- |
-| `stackable-drawer/drawer-box.STL` | STL | 抽屉盒（带堆叠卡槽） |
-| `stackable-drawer/drawer-panel.STL` | STL | 前面板 + 拉手 |
-| `stackable-drawer/stackable-drawer-assembly.STL` | STL | 完整抽屉装配 |
-| `stackable-drawer/stackable-drawer-viewer.html` | HTML | 交互式 3D 预览（Three.js） |
-| `stackable-drawer/generate_stl.py` | Python | STL 生成脚本（可调参数） |
+## 怎么使用
 
-## 目录结构
+### 查看或修改设计
 
-```
+1. 下载或克隆整个仓库，保留 `drawer/` 内零件与装配体的相对位置。
+2. 使用 SolidWorks 打开 `drawer/drawer-assembly.SLDASM` 查看装配；打开对应 `.SLDPRT` 编辑零件。
+3. 修改模型后，重新导出对应 STL，再用于切片和打印。
+
+### 3D 打印与验证
+
+将 `drawer/` 中的两个 STL 分别导入切片软件，根据打印机、材料和实际使用需求设置打印参数。打印后检查抽屉滑动、上下及左右间隙，再决定是否调整模型。
+
+STL 是设计导出的快照。当前间隙修改尚待打印验证，具体进度和尺寸变更见 [STATUS.md](STATUS.md)。
+
+### 查看设计参考
+
+[references/](references/README.md) 存放 AI 生成的概念模型、预览页和生成脚本，现有方案为 [可堆叠抽屉](references/stackable-drawer/README.md)。用浏览器打开其中的 HTML 可查看概念预览，页面依赖联网加载的库。
+
+这些资料用于设计参考，未作为实际生产方案验证。预览页独立绘制模型，与 STL 的几何不完全一致；文件说明与使用方法见参考目录。
+
+## 目录导览
+
+```text
 lab-workspace-suite/
-├── drawer/              # 抽屉组件（零件 / 装配体 / STL）
-├── stackable-drawer/    # 可堆叠抽屉系统（STL / HTML 预览 / 生成脚本）
-├── LICENSE              # CC BY 4.0 开源协议
-├── README.md            # 项目说明
-├── STATUS.md            # 项目状态
-├── AGENTS.md            # AI 助手约定
-├── CLAUDE.md            # Claude Code 约定
-└── .gitignore           # SolidWorks 临时与系统文件过滤
+├── drawer/                     # 实际开发的抽屉组件：SolidWorks / STL
+├── references/                 # 设计参考资料
+│   ├── README.md               # 参考索引与命名方式
+│   └── stackable-drawer/       # AI 生成的可堆叠抽屉概念方案
+├── README.md                   # 项目用途与使用入口
+├── STATUS.md                   # 开发进度、验证状态与更新记录
+├── AGENTS.md                   # AI 助手维护约定
+├── CLAUDE.md                   # Claude Code 维护约定
+├── LICENSE
+└── .gitignore
 ```
 
-## 使用方法
-
-- **设计查看 / 编辑**：使用 SolidWorks 打开 `.SLDPRT` / `.SLDASM` 文件
-- **3D 打印**：直接使用 `.STL` 文件导入切片软件
-
-## 使用说明
-
-- 建议在 SolidWorks 中保持零件、装配体相对路径一致，移动整个文件夹即可
-- STL 文件为导出快照，修改模型后如需打印请重新导出
-
-## 待办 / 规划
-
-开发计划、进度与更新记录统一维护在 [STATUS.md](./STATUS.md)。
+开发计划、进度与更新记录统一维护在 [STATUS.md](STATUS.md)。
