@@ -17,6 +17,15 @@
 | [drawer-box.SLDPRT](drawer/drawer-box.SLDPRT) | 编辑外层容纳与堆叠壳体 |
 | [drawer-box.STL](drawer/drawer-box.STL)、[drawer-front.STL](drawer/drawer-front.STL) | 导入切片软件，准备试制 |
 
+### 电解池盖 (electrolytic-cell-cover)
+
+电解池配套盖板，已完成建模并导出打印网格。
+
+| 文件入口 | 用途 |
+| --- | --- |
+| [cover01.SLDPRT](electrolytic-cell-cover/cover01.SLDPRT) | 编辑电解池盖零件 |
+| [cover01.STL](electrolytic-cell-cover/cover01.STL) | 导入切片软件，准备试制 |
+
 ## 怎么使用
 
 ### 查看或修改设计
@@ -44,15 +53,16 @@ STL 是设计导出的快照，修改源模型后需同步导出。具体进度�
 
 ```text
 lab-workspace-suite/
-├── drawer/                     # 实际开发的抽屉组件：SolidWorks / STL
-├── references/                 # 设计参考资料
-│   ├── README.md               # 参考索引与命名方式
-│   ├── drawer-organizer/       # 抽屉内部分区：离线 HTML / 图片 / 提示词
-│   └── stackable-drawer/       # AI 生成的可堆叠抽屉概念方案
-├── README.md                   # 项目用途与使用入口
-├── STATUS.md                   # 开发进度、验证状态与更新记录
-├── AGENTS.md                   # AI 助手维护约定
-├── CLAUDE.md                   # Claude Code 维护约定
+├── drawer/                  # 实际开发的抽屉组件：SolidWorks / STL
+├── electrolytic-cell-cover/ # 电解池盖：SolidWorks / STL
+├── references/              # 设计参考资料
+│   ├── README.md            # 参考索引与命名方式
+│   ├── drawer-organizer/    # 抽屉内部分区：离线 HTML / 图片 / 提示词
+│   └── stackable-drawer/    # AI 生成的可堆叠抽屉概念方案
+├── README.md                # 项目用途与使用入口
+├── STATUS.md                # 开发进度、验证状态与更新记录
+├── AGENTS.md                # AI 助手维护约定
+├── CLAUDE.md                # Claude Code 维护约定
 ├── LICENSE
 └── .gitignore
 ```
