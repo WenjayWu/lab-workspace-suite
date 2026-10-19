@@ -15,7 +15,8 @@
 | [drawer-assembly.SLDASM](drawer/drawer-assembly.SLDASM) | 查看整体装配和零件配合 |
 | [drawer-front.SLDPRT](drawer/drawer-front.SLDPRT) | 编辑实际抽屉与收纳内腔 |
 | [drawer-box.SLDPRT](drawer/drawer-box.SLDPRT) | 编辑外层容纳与堆叠壳体 |
-| [drawer-box.STL](drawer/drawer-box.STL)、[drawer-front.STL](drawer/drawer-front.STL) | 导入切片软件，准备试制 |
+| [drawer-grid-4x4.SLDPRT](drawer/drawer-grid-4x4.SLDPRT) | 编辑抽屉内 4×4 分格件（十六宫格） |
+| [drawer-box.STL](drawer/drawer-box.STL)、[drawer-front.STL](drawer/drawer-front.STL)、[drawer-grid-4x4.STL](drawer/drawer-grid-4x4.STL) | 导入切片软件，准备试制 |
 
 ### 电解池盖 (electrolytic-cell-cover)
 
