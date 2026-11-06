@@ -8,16 +8,25 @@
 
 ### 抽屉 (drawer)
 
-用于工作台收纳，已完成基础设计、打印与使用（维护者反馈）。`drawer-front` 是实际抽拉与容纳物品的完整抽屉，`drawer-box` 是容纳抽屉的外层壳体，并实现堆叠。抽屉内腔约为宽 270 × 深 260 × 高 134 mm。
+用于工作台收纳。基础抽屉已完成基础设计、打印与使用（维护者反馈），内腔约为宽 270 × 深 260 × 高 134 mm。`drawer-front` 是实际抽拉与容纳物品的完整抽屉，`drawer-box` 是容纳抽屉的外层壳体，并实现堆叠。
 
 | 文件入口 | 用途 |
 | --- | --- |
 | [drawer-assembly.SLDASM](drawer/drawer-assembly.SLDASM) | 查看整体装配和零件配合 |
 | [drawer-front.SLDPRT](drawer/drawer-front.SLDPRT) | 编辑实际抽屉与收纳内腔 |
 | [drawer-box.SLDPRT](drawer/drawer-box.SLDPRT) | 编辑外层容纳与堆叠壳体 |
-| [drawer-grid-4x4.SLDPRT](drawer/drawer-grid-4x4.SLDPRT) | 编辑抽屉内 4×4 分格件（十六宫格，无底无边） |
+| [drawer-grid-4x4.SLDPRT](drawer/drawer-grid-4x4.SLDPRT) | 编辑抽屉内 4×4 分格件（十六宫格，无底无边），外形已调整为 258 × 268 mm |
 | [grid-tray-4x4.SLDPRT](drawer/grid-tray-4x4.SLDPRT) | 编辑可独立使用的 4×4 分格托盘（带底带边） |
 | [drawer-box.STL](drawer/drawer-box.STL)、[drawer-front.STL](drawer/drawer-front.STL)、[drawer-grid-4x4.STL](drawer/drawer-grid-4x4.STL)、[grid-tray-4x4.STL](drawer/grid-tray-4x4.STL) | 导入切片软件，准备试制 |
+
+#### 多层抽屉 (multi-tier-drawer) — 待打印验证
+
+新增可分层抽出的多层抽屉方案。此方案中，`drawer-box` 是用于盛放物品的抽屉盒，`drawer-case` 是容纳抽屉盒的外层壳体；该命名仅用于此方案，不改变上述基础抽屉的现有文件名。
+
+| 文件入口 | 用途 |
+| --- | --- |
+| [drawer-box.SLDPRT](drawer/multi-tier-drawer/drawer-box.SLDPRT)、[drawer-box.STL](drawer/multi-tier-drawer/drawer-box.STL) | 编辑或打印用于盛放物品、可分层抽出的抽屉盒 |
+| [drawer-case.SLDPRT](drawer/multi-tier-drawer/drawer-case.SLDPRT)、[drawer-case.STL](drawer/multi-tier-drawer/drawer-case.STL) | 编辑或打印用于容纳抽屉盒的外层壳体 |
 
 ### 电解池盖 (electrolytic-cell-cover)
 
@@ -33,12 +42,12 @@
 ### 查看或修改设计
 
 1. 下载或克隆整个仓库，保留 `drawer/` 内零件与装配体的相对位置。
-2. 使用 SolidWorks 打开 `drawer/drawer-assembly.SLDASM` 查看装配；打开对应 `.SLDPRT` 编辑零件。
+2. 使用 SolidWorks 打开 `drawer/drawer-assembly.SLDASM` 查看基础抽屉装配；打开对应 `.SLDPRT` 编辑零件。多层抽屉可直接打开 `drawer/multi-tier-drawer/` 中的零件。
 3. 修改模型后，重新导出对应 STL，再用于切片和打印。
 
 ### 3D 打印与验证
 
-将 `drawer/` 中的两个 STL 分别导入切片软件，根据打印机、材料和实际使用需求设置打印参数。打印后检查抽屉滑动、上下及左右间隙，再决定是否调整模型。
+将 `drawer/` 中所需部件的 STL 分别导入切片软件，根据打印机、材料和实际使用需求设置打印参数。基础抽屉打印后检查抽屉滑动、上下及左右间隙；多层抽屉与 4×4 分格件打印后检查分层抽拉、配合、打印质量和实际收纳效果，再决定是否调整模型。
 
 STL 是设计导出的快照，修改源模型后需同步导出。具体进度、使用反馈与尺寸变更见 [STATUS.md](STATUS.md)。
 
@@ -56,6 +65,7 @@ STL 是设计导出的快照，修改源模型后需同步导出。具体进度�
 ```text
 lab-workspace-suite/
 ├── drawer/                  # 实际开发的抽屉组件：SolidWorks / STL
+│   └── multi-tier-drawer/   # 可分层抽出的多层抽屉方案，待打印验证
 ├── electrolytic-cell-cover/ # 电解池盖：SolidWorks / STL
 ├── references/              # 设计参考资料
 │   ├── README.md            # 参考索引与命名方式
