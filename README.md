@@ -21,11 +21,12 @@
 
 #### 多层抽屉 (multi-tier-drawer) — 待打印验证
 
-新增可分层抽出的多层抽屉方案。此方案中，`drawer-box` 是用于盛放物品的抽屉盒，`drawer-case` 是容纳抽屉盒的外层壳体；该命名仅用于此方案，不改变上述基础抽屉的现有文件名。
+新增可分层抽出的多层抽屉方案。此方案中，`drawer-box` 是用于盛放物品的抽屉盒，`drawer-case` 是容纳抽屉盒的外层壳体；该命名仅用于此方案，不改变上述基础抽屉的现有文件名。方案现有普通抽屉盒与 4×4 分格版，后者将单个抽屉划分为 16 个小方格，便于分类收纳。
 
 | 文件入口 | 用途 |
 | --- | --- |
-| [drawer-box.SLDPRT](drawer/multi-tier-drawer/drawer-box.SLDPRT)、[drawer-box.STL](drawer/multi-tier-drawer/drawer-box.STL) | 编辑或打印用于盛放物品、可分层抽出的抽屉盒 |
+| [drawer-box.SLDPRT](drawer/multi-tier-drawer/drawer-box.SLDPRT)、[drawer-box.STL](drawer/multi-tier-drawer/drawer-box.STL) | 编辑或打印用于盛放物品、可分层抽出的普通抽屉盒 |
+| [drawer-box-4x4-grid-tray.SLDPRT](drawer/multi-tier-drawer/drawer-box-4x4-grid-tray.SLDPRT)、[drawer-box-4x4-grid-tray.STL](drawer/multi-tier-drawer/drawer-box-4x4-grid-tray.STL) | 编辑或打印 4×4 分格版抽屉盒，单个抽屉分为 16 个小方格 |
 | [drawer-case.SLDPRT](drawer/multi-tier-drawer/drawer-case.SLDPRT)、[drawer-case.STL](drawer/multi-tier-drawer/drawer-case.STL) | 编辑或打印用于容纳抽屉盒的外层壳体 |
 
 ### 电解池盖 (electrolytic-cell-cover)
@@ -47,7 +48,7 @@
 
 ### 3D 打印与验证
 
-将 `drawer/` 中所需部件的 STL 分别导入切片软件，根据打印机、材料和实际使用需求设置打印参数。基础抽屉打印后检查抽屉滑动、上下及左右间隙；多层抽屉与 4×4 分格件打印后检查分层抽拉、配合、打印质量和实际收纳效果，再决定是否调整模型。
+将 `drawer/` 中所需部件的 STL 分别导入切片软件，根据打印机、材料和实际使用需求设置打印参数。基础抽屉打印后检查抽屉滑动、上下及左右间隙；多层抽屉（含 4×4 分格版）与独立 4×4 分格件打印后检查分层抽拉、配合、打印质量和实际收纳效果，再决定是否调整模型。
 
 STL 是设计导出的快照，修改源模型后需同步导出。具体进度、使用反馈与尺寸变更见 [STATUS.md](STATUS.md)。
 
@@ -65,7 +66,7 @@ STL 是设计导出的快照，修改源模型后需同步导出。具体进度�
 ```text
 lab-workspace-suite/
 ├── drawer/                  # 实际开发的抽屉组件：SolidWorks / STL
-│   └── multi-tier-drawer/   # 可分层抽出的多层抽屉方案，待打印验证
+│   └── multi-tier-drawer/   # 可分层抽出的多层抽屉方案，含 4×4 分格版，待打印验证
 ├── electrolytic-cell-cover/ # 电解池盖：SolidWorks / STL
 ├── references/              # 设计参考资料
 │   ├── README.md            # 参考索引与命名方式

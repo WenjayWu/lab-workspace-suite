@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-- 最近更新：2026-11-06（新增 multi-tier-drawer；drawer-grid-4x4 外形缩至 258 × 268 mm，均待打印验证）
+- 最近更新：2026-11-12（multi-tier-drawer 新增 4×4 分格版抽屉盒，单个抽屉分为 16 格，待打印验证）
 - 开发组件：2（抽屉、电解池盖；多层抽屉为 drawer 下的新结构方案）
 - 参考方案：2（可堆叠抽屉、抽屉内部分区，仅作设计参考）
 - 开源协议：CC BY 4.0
@@ -18,6 +18,8 @@
 
 2026-11-06 新增 multi-tier-drawer 多层抽屉方案：`drawer-box` 用于盛放物品并可分层抽出，`drawer-case` 用于容纳抽屉盒。该命名仅用于此方案，不改变基础抽屉的现有文件名；方案已完成建模与 STL 导出，待打印验证。
 
+2026-11-12 新增 `drawer-box-4x4-grid-tray` 4×4 分格版抽屉盒，将单个抽屉划分为 16 个小方格，便于分类收纳；已完成建模与 STL 导出，待打印验证。
+
 | 文件 | 类型 | 说明 |
 | --- | --- | --- |
 | `drawer/drawer-box.SLDPRT` | 零件 | 外层壳体，容纳实际抽屉并实现堆叠 |
@@ -29,8 +31,10 @@
 | `drawer/drawer-grid-4x4.STL` | STL | 4×4 分格件的打印网格，已随尺寸调整重新导出 |
 | `drawer/grid-tray-4x4.SLDPRT` | 零件 | 可独立使用的 4×4 分格托盘（带底带边），新版打印验证中 |
 | `drawer/grid-tray-4x4.STL` | STL | 4×4 分格托盘的打印网格 |
-| `drawer/multi-tier-drawer/drawer-box.SLDPRT` | 零件 | 多层抽屉的抽屉盒，用于盛放物品，可分层抽出 |
-| `drawer/multi-tier-drawer/drawer-box.STL` | STL | 多层抽屉盒的打印网格 |
+| `drawer/multi-tier-drawer/drawer-box.SLDPRT` | 零件 | 多层抽屉的普通抽屉盒，用于盛放物品，可分层抽出 |
+| `drawer/multi-tier-drawer/drawer-box.STL` | STL | 多层抽屉普通抽屉盒的打印网格 |
+| `drawer/multi-tier-drawer/drawer-box-4x4-grid-tray.SLDPRT` | 零件 | 多层抽屉的 4×4 分格版抽屉盒，单个抽屉分为 16 个小方格，待打印验证 |
+| `drawer/multi-tier-drawer/drawer-box-4x4-grid-tray.STL` | STL | 多层抽屉 4×4 分格版抽屉盒的打印网格 |
 | `drawer/multi-tier-drawer/drawer-case.SLDPRT` | 零件 | 多层抽屉的外层壳体，用于容纳抽屉盒 |
 | `drawer/multi-tier-drawer/drawer-case.STL` | STL | 多层抽屉外层壳体的打印网格 |
 
@@ -63,7 +67,7 @@ AI 生成的测试资料，不作为后续实际生产方案。来源据回忆�
 
 **下一步（优先级高）**
 
-- [ ] 打印验证 drawer-grid-4x4 与 multi-tier-drawer 的质量、配合和实用性
+- [ ] 打印验证 drawer-grid-4x4 与 multi-tier-drawer（含 4×4 分格版）的质量、配合和实用性
 - [ ] 评估抽屉分区概念，选择后续 SolidWorks 建模方向
 - [ ] 归档现有抽屉的尺寸、间隙与打印使用反馈
 
@@ -84,6 +88,7 @@ AI 生成的测试资料，不作为后续实际生产方案。来源据回忆�
 
 | 日期 | 类型 | 内容 |
 | --- | --- | --- |
+| 2026-11-12 | 新增 | multi-tier-drawer 新增 drawer-box-4x4-grid-tray 4×4 分格版抽屉盒，将单个抽屉划分为 16 个小方格；已添加 SLDPRT 与 STL，待打印验证质量、配合与实用性 |
 | 2026-11-06 | 新增 | drawer 新增可分层抽出的 multi-tier-drawer 方案：drawer-box 用于盛放物品，drawer-case 用于容纳抽屉盒；新命名仅用于此方案。已添加两项零件的 SLDPRT 与 STL，待打印验证质量与实用性 |
 | 2026-11-06 | 修改 | drawer-grid-4x4 平面外形由 260 × 270 mm 调整为 258 × 268 mm，已重新导出 STL，待打印验证 |
 | 2026-10-28 | 修改 | grid-tray-4x4 旧版打印后装入抽屉较困难；外形由约 259.6 × 269.6 × 高 30 mm 缩小至 258 × 268 × 高 30 mm，并添加圆角；已重新导出 STL，新版打印验证中 |
